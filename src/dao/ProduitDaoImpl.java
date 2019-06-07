@@ -46,7 +46,7 @@ public class ProduitDaoImpl implements IProduit {
 		
 		try {
 			PreparedStatement ps = connection.prepareStatement("select * from produits where designation like ?");
-			ps.setString(1, "%" + mc + "%");
+			ps.setString(1, "%"+mc+"%");
 			ResultSet rs = ps.executeQuery();
 			
 			while(rs.next()) {
