@@ -35,6 +35,7 @@ public class ControleurServlet extends HttpServlet {
 			List<Produit> produits=metier.produitsParMc(motCle);
 			model.setProduits(produits);
 			request.setAttribute("model", model);
+			request.getRequestDispatcher("/produit.jsp").forward(request,response);
 		}
 		
 	}
