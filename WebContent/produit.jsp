@@ -1,32 +1,7 @@
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Gestion PRODUIT</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="css/bootstrap.css" media="screen">
-    <link rel="stylesheet" href="css/custom.css">
-    
-    <style type="text/css">
-    body {
-	margin: -100px;
-}
-    </style>
-  </head>
-  <body>
-    <div class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
-      <div class="container">
-        <a href="http://localhost:8080/TP_CAT/index.dev" class="navbar-brand">PROJET</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-        </div>
-      </div>
-    </div>
+  <%@include file="entete.jsp" %>
+   <%@include file="header.jsp" %>
+   
 
 
     <div class="container">
@@ -40,7 +15,7 @@
   <div class="card-body">
    <form action="submit.dev" method="get">
    <div class="form-group">
-   <label for="seach">Mot clé</label>
+   <label for="seach">Mot cle</label>
    <input type="text" id="seach" class="" name="motCle">
    <button type="submit" class="btn btn-primary" >search</button>
    </div>
@@ -50,9 +25,11 @@
      <thead>
     <tr>
       <th scope="col">ID</th>
-      <th scope="col">Désignation</th>
+      <th scope="col">Designation</th>
       <th scope="col">Prix</th>
-      <th scope="col">Quantité</th>
+      <th scope="col">Quantite</th>
+       <th scope="col"></th>
+        <th scope="col"></th>
     </tr>
   </thead>
     <tbody>
@@ -63,6 +40,8 @@
          <td>${p.designation}</td>
           <td>${p.prix}</td>
            <td>${p.quantite}</td>
+            <td><a href="http://localhost:8080/TP_CAT/Edite.dev?edite=${p.id}" class="btn btn-info">Edit</a></td>
+             <td><a href="http://localhost:8080/TP_CAT/Supprimer.dev?sup=${p.id}" class="btn btn-danger" onclick="return confirm('Etes vous sûre de vouloire supprimer cet article?')">Supprimer</a></td>
         </tr>
     </c:forEach>
     
@@ -84,9 +63,4 @@
     </div>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
-  </body>
-</html>
+<%@include file="footer.jsp" %>

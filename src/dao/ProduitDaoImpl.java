@@ -67,20 +67,87 @@ public class ProduitDaoImpl implements IProduit {
 
 	@Override
 	public Produit getProduit(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		  Produit p =null;
+		Connection connection=SingletonConnection.getConnection();
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM produits WHERE id=?");
+			ps.setLong(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				p=new Produit();
+				p.setId(rs.getLong("id"));
+				p.setDesignation(rs.getString("designation"));
+				p.setPrix(rs.getDouble("prix"));
+				p.setQuantite(rs.getInt("quantite"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return p;
 	}
 
 	@Override
 	public Produit update(Produit p) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection=SingletonConnection.getConnection();
+		try {
+			PreparedStatement ps =connection.prepareStatement("UPDATE produits SET designation = ?, prix = ?, quantite = ? WHERE id = ?;");
+			ps.setString(1, p.getDesignation());
+			ps.setDouble(2, p.getPrix());
+			ps.setInt(3, p.getQuantite());
+			ps.setLong(4, p.getId());
+			ps.executeUpdate();
+			
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return p;
 	}
 
 	@Override
 	public void deleteProduit(Long id) {
-		// TODO Auto-generated method stub
+		Connection connection=SingletonConnection.getConnection();
+		try {
+			PreparedStatement ps =connection.prepareStatement("DELETE FROM `produits` WHERE id= ?");
+			ps.setLong(1, id);
+			ps.executeUpdate();
+			ps.close();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
+		
+	}
+
+	@Override
+	public List<Produit> produitsList() {
+		List<Produit> prods =new ArrayList<Produit>();
+		Connection connection=SingletonConnection.getConnection();
+		try {
+			PreparedStatement ps = connection.prepareStatement("SELECT * FROM produits ORDER BY designation ASC");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Produit p=new Produit();
+				p.setId(rs.getLong("id"));
+				p.setDesignation(rs.getString("designation"));
+				p.setPrix(rs.getDouble("prix"));
+				p.setQuantite(rs.getInt("quantite"));
+				prods.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return prods;
 	}
 
 }
